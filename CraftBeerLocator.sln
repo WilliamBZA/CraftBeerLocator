@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CraftBeerLocator.MVC", "CraftBeerLocator.MVC\CraftBeerLocator.MVC.csproj", "{C4C052E3-4178-418F-B5D3-F796B5FBE78B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CraftBeerLocator.MVC.Tests", "CraftBeerLocator.MVC.Tests\CraftBeerLocator.MVC.Tests.csproj", "{C3781CD5-2948-49F4-8114-77B7B87842B2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C4C052E3-4178-418F-B5D3-F796B5FBE78B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4C052E3-4178-418F-B5D3-F796B5FBE78B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4C052E3-4178-418F-B5D3-F796B5FBE78B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4C052E3-4178-418F-B5D3-F796B5FBE78B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3781CD5-2948-49F4-8114-77B7B87842B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3781CD5-2948-49F4-8114-77B7B87842B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3781CD5-2948-49F4-8114-77B7B87842B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3781CD5-2948-49F4-8114-77B7B87842B2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

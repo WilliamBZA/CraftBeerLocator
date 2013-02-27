@@ -1,0 +1,197 @@
+﻿<section class="featured">
+    <div class="content-wrapper">
+        <hgroup class="title">
+            <h2>Find a beer!</h2>
+        </hgroup>
+
+        <div id="beerMap" style="position: relative; width: 800px; height: 400px; background:blue;"></div>
+    </div>
+</section>
+
+@section Scripts
+{
+<script type="text/javascript">
+    $(function () {
+        var map = loadMapControl(document.getElementById("beerMap"));
+        populateWateringHoles(map);
+    });
+
+    function loadMapControl(mapDiv) {
+        return new Microsoft.Maps.Map(mapDiv, {
+            credentials: "AkO1rARMw-tWnH2pu_4ujk58o8KOmfscCaavb5OJngpLVrgNj3DVZZjLFyJxu4DZ",
+            mapTypeId: Microsoft.Maps.MapTypeId.road,
+            center: new Microsoft.Maps.Location(-28.249356, 23.1891),
+            zoom: 5,
+            showMapTypeSelector: false,
+            disableBirdseye: true,
+            showScalebar: false
+        });
+    }
+
+    function loadWateringHoles() {
+        return [{
+            name: 'Gilroys Beer',
+            location: { latitude: -28.249356, longitude: 23.1891 },
+            description: 'Home of SA\'s highest rated beer!',
+            type: 'bar'
+        }, {
+            name: 'Gilroys Beer',
+            location: { latitude: -25.249356, longitude: 23.1891 },
+            description: 'Home of SA\'s highest rated beer!',
+            type: 'brewery'
+        }, {
+            name: 'Gilroys Beer',
+            location: { latitude: -22.249356, longitude: 23.1891 },
+            description: 'Home of SA\'s highest rated beer!',
+            type: 'bottlestore'
+        }, {
+            name: 'Gilroys Beer',
+            location: { latitude: -28.249356, longitude: 26.1891 },
+            description: 'Home of SA\'s highest rated beer!',
+            type: 'barbottlestore'
+        }, {
+            name: 'Gilroys Beer',
+            location: { latitude: -25.249356, longitude: 26.1891 },
+            description: 'Home of SA\'s highest rated beer!',
+            type: 'brewerybottlestore'
+        }, {
+            name: 'Gilroys Beer',
+            location: { latitude: -22.249356, longitude: 26.1891 },
+            description: 'Home of SA\'s highest rated beer!',
+            type: 'brewerybar'
+        }, {
+            name: 'Gilroys Beer',
+            location: { latitude: -28.249356, longitude: 30.1891 },
+            description: 'Home of SA\'s highest rated beer!',
+            type: 'barbottlestorebrewery'
+        }];
+    }
+
+    function populateWateringHoles(map) {
+        var wateringHoles = loadWateringHoles();
+
+        for (var x = 0; x < wateringHoles.length; x++) {
+            var brewery = wateringHoles[x];
+            var pin = createPin(brewery.name, brewery.type, brewery.location.latitude, brewery.location.longitude, brewery.description);
+            map.entities.push(pin);
+        }
+    }
+
+    function createPin(breweryName, type, latitude, longitude, description) {
+        var location = new Microsoft.Maps.Location(latitude, longitude);
+
+        var infoDetails = {
+            title: 'Brewery: ' + breweryName,
+            description: description
+        };
+
+        var pin = new Microsoft.Maps.Pushpin(location, {
+            draggable: false,
+            icon: getImageForType(type),
+            width: getWidthForType(type),
+            height: 50,
+            details: infoDetails
+        });
+
+        Microsoft.Maps.Events.addHandler(pin, 'mouseover', showBreweryInformation);
+        Microsoft.Maps.Events.addHandler(pin, 'mouseout',  function (e) {
+            var pin = e.target;
+            var pinInfobox = pin._infobox;
+            if (pinInfobox != null) {
+                pinInfobox.setOptions({ visible: false });
+            }
+        });
+
+        //infoBox.setOptions({ offset: new Microsoft.Maps.Point(0, pin.getHeight()) });
+        //map.entities.push(infoBox);
+
+        return pin;
+    }
+
+    function getImageForType(type) {
+        switch (type) {
+            case 'bar':
+                return '/Images/Bar.png';
+            case 'bottlestore':
+                return '/Images/BottleStore.png';
+            case 'barbottlestore':
+                return '/Images/BarBottleStore.png';
+            case 'brewerybottlestore':
+                return '/Images/BreweryBottleStore.png';
+            case 'brewerybar':
+                return '/Images/BreweryBar.png';
+            case 'barbottlestorebrewery':
+                return '/Images/BreweryBottleStoreBar.png';
+            default:
+                return '/Images/Brewery.png';
+        }
+    }
+
+    function getWidthForType(type) {
+        switch (type) {
+            case 'barbottlestore':
+            case 'brewerybottlestore':
+            case 'brewerybar':
+                return 59;
+            case 'barbottlestorebrewery':
+                return 89;
+            case 'bar':
+            case 'bottlestore':
+            default:
+                return 35;
+        }
+    }
+
+    function showBreweryInformation(e) {
+        var pin = e.target;
+        var details = pin.infoDetails;
+
+        var infoBox = new Microsoft.Maps.Infobox(location, {
+            title: details.title,
+            description: details.description,
+            visible: true,
+            zIndex: 999,
+            offset: new Microsoft.Maps.Point(0, pin.getHeight())
+        });
+    }
+
+    function displayInfobox(e) {
+        // make sure we clear any infoBox timer that may still be active
+        stopInfoboxTimer(e);
+
+        // build or display the infoBox
+        var pin = e.target;
+        if (pin != null) {
+            var pinInfobox = pin.getInfobox();
+            if (pinInfobox != null) {
+                //pin.map.entities.remove(pinInfobox);
+                //if (Microsoft.Maps.Events.hasHandler(pinInfobox, 'mouseleave')) {
+                //    Microsoft.Maps.Events.removeHandler(pinInfobox.mouseLeaveHandler);
+                //}
+                //if (Microsoft.Maps.Events.hasHandler(pinInfobox, 'mouseenter')) {
+                //    Microsoft.Maps.Events.removeHandler(pinInfobox.mouseEnterHandler);
+                //}
+                //pinInfobox = null;
+                pinInfobox.setOptions({ visible: true });
+            }
+            //// hide infobox on mouseleave
+            //pinInfobox.mouseLeaveHandler = Microsoft.Maps.Events.addHandler(pinInfobox, 'mouseleave', pinInfoboxMouseLeave);
+            //// stop the infobox hide timer on mouseenter
+            //pinInfobox.mouseEnterHandler = Microsoft.Maps.Events.addHandler(pinInfobox, 'mouseenter', pinInfoboxMouseEnter);
+            //// add it to the map.
+            //map.entities.push(pinInfobox);
+        }
+    }
+
+    // Clear the infoBox timer, if set, to keep it from firing.
+    function stopInfoboxTimer(e) {
+        var pin = e.target;
+        if (pin != null) {
+            var pinInfobox = pin._infobox;
+            if (pinInfobox != null && pinInfobox.pinTimer != null) {
+                clearTimeout(pinInfobox.pinTimer);
+            }
+        }
+    }
+</script>
+}

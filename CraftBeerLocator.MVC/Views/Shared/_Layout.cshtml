@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Craft Beer Locator - Find craft beer near you!</title>
+    
+    <meta name="description" content="Place your description here">
+    <meta name="keywords" content="put, your, keyword, here">
+    <meta name="author" content="Templates.com - website templates provider">
+    <meta charset="utf-8">
+
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link rel="stylesheet" href="Content/reset.css" type="text/css" media="all">
+    <link rel="stylesheet" href="Content/layout.css" type="text/css" media="all">
+    <link rel="stylesheet" href="Content/style.css" type="text/css" media="all">
+    @Styles.Render("~/Content/css")
+
+    <script type="text/javascript" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script>
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+</head>
+<body id="page1">
+<div class="body-bg wrap">
+   <!-- header -->
+   <header>
+      <div class="container">
+         <h1><a href="index.html">Craft Beer Locator</a></h1>
+         <nav>
+            <ul>
+               <li>@Html.ActionLink("Find a Beer", "Index", "Home")</li>
+               <li>@Html.ActionLink("Add a Beer", "Beers", "Create")</li>
+               <li>@Html.ActionLink("About", "About", "Home")</li>
+            </ul>
+         </nav>
+      </div>
+   </header>
+   <!-- content -->
+   <section id="content">
+      <div class="container">
+         <div class="inside">
+            <div class="indent">
+                @RenderSection("featured", required: false)
+                <section class="content-wrapper main-content clear-fix">
+                    @RenderBody()
+                </section>
+            </div>
+         </div>
+      </div>
+   </section>
+</div>
+<!-- footer -->
+<footer>
+   <div class="container">
+      <div class="inside">Template from <a href="http://www.templatemonster.com/" class="new_window" target="_blank" rel="nofollow">www.templatemonster.com</a></div>
+   </div>
+</footer>
+    @RenderSection("scripts", required: false)
+</body>
+</html>
